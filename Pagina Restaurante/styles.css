@@ -1,0 +1,298 @@
+/* ==========================================================
+   1. VARIABLES Y BASE
+   ========================================================== */
+:root {
+  --green-900: #1f3a2d;
+  --green-700: #2d5642;
+  --green-100: #e4ede7;
+  --cream-50: #fbf7ef;
+  --cream-100: #f4ecdc;
+  --white: #ffffff;
+  --terracotta: #c4623a;
+  --terracotta-dark: #a24a27;
+  --text: #2a2a26;
+  --text-soft: #6b6a62;
+  --border: #e2d9c5;
+  --danger: #b3382c;
+  --ok: #2f7d4f;
+  --off: #9a6a1a;
+  --radius: 14px;
+  --shadow: 0 6px 20px rgba(31, 58, 45, 0.08);
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-title: "Playfair Display", Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--cream-50);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, p { margin: 0; }
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   2. ENCABEZADO
+   ========================================================== */
+.site-header {
+  background: var(--green-900);
+  color: var(--cream-50);
+  border-bottom: 4px solid var(--terracotta);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.brand { display: flex; align-items: center; gap: 0.8rem; }
+.brand-icon { width: 46px; height: 46px; color: var(--cream-100); }
+.brand-name { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; line-height: 1.1; }
+.brand-tagline { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #d8c7a3; }
+.page-title { font-size: 1.1rem; font-weight: 500; color: var(--cream-100); }
+
+/* ==========================================================
+   3. LAYOUT PRINCIPAL
+   ========================================================== */
+.main-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  grid-template-areas:
+    "stats stats"
+    "form  list";
+  gap: 1.5rem;
+  padding-top: 1.75rem;
+  padding-bottom: 2.5rem;
+  flex: 1;
+  align-items: start;
+}
+
+.stats { grid-area: stats; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.form-panel { grid-area: form; position: sticky; top: 1rem; }
+.list-panel { grid-area: list; min-width: 0; }
+
+/* ==========================================================
+   4. COMPONENTES: PANELES E INDICADORES
+   ========================================================== */
+.panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.panel-title {
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  color: var(--green-900);
+  margin-bottom: 1rem;
+}
+
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--green-700);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+}
+.stat-ok { border-left-color: var(--ok); }
+.stat-off { border-left-color: var(--terracotta); }
+.stat-label { font-size: 0.82rem; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.06em; }
+.stat-value { font-family: var(--font-title); font-size: 2rem; color: var(--green-900); }
+
+/* ==========================================================
+   5. FORMULARIO
+   ========================================================== */
+.field { margin-bottom: 1rem; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+
+label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--green-900); }
+.req { color: var(--terracotta); }
+
+input, select, textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--text);
+  background: var(--cream-50);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+textarea { resize: vertical; min-height: 80px; }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--green-700);
+  box-shadow: 0 0 0 3px rgba(45, 86, 66, 0.18);
+}
+
+.has-error input, .has-error select, .has-error textarea { border-color: var(--danger); }
+.error-msg { color: var(--danger); font-size: 0.8rem; min-height: 1em; margin-top: 0.25rem; }
+
+.form-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.5rem; }
+
+/* ==========================================================
+   6. BOTONES
+   ========================================================== */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.05s, border-color 0.15s;
+}
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 3px solid rgba(196, 98, 58, 0.45); outline-offset: 2px; }
+
+.btn-primary { background: var(--green-700); color: var(--white); }
+.btn-primary:hover { background: var(--green-900); }
+
+.btn-ghost { background: transparent; color: var(--green-900); border-color: var(--border); }
+.btn-ghost:hover { background: var(--cream-100); }
+
+.btn-accent { background: var(--terracotta); color: var(--white); }
+.btn-accent:hover { background: var(--terracotta-dark); }
+
+.btn-danger { background: var(--danger); color: var(--white); }
+.btn-danger:hover { background: #8f2c22; }
+
+.btn-small { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+
+/* ==========================================================
+   7. LISTADO Y TARJETAS
+   ========================================================== */
+.list-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.list-header .panel-title { margin-bottom: 0; }
+.search-box { flex: 1; min-width: 200px; max-width: 320px; }
+.results-info { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 1rem; }
+
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+
+.product-card {
+  background: var(--cream-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.product-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.product-card.is-editing { border-color: var(--terracotta); box-shadow: 0 0 0 2px rgba(196, 98, 58, 0.25); }
+.product-card.is-unavailable .product-name { color: var(--text-soft); }
+
+.card-top { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+.product-code { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; color: var(--terracotta-dark); background: #f6e3d8; padding: 0.15rem 0.55rem; border-radius: 6px; }
+.product-name { font-family: var(--font-title); font-size: 1.15rem; color: var(--green-900); }
+.product-category { font-size: 0.8rem; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.07em; }
+.product-description { font-size: 0.92rem; color: var(--text); flex: 1; }
+.product-price { font-size: 1.25rem; font-weight: 700; color: var(--green-700); }
+
+.card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.card-actions { display: flex; gap: 0.4rem; margin-top: 0.3rem; }
+.card-actions .btn { flex: 1; }
+
+.badge { font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 999px; }
+.badge-ok { background: #dff1e5; color: var(--ok); }
+.badge-off { background: #f8ebd2; color: var(--off); }
+
+.empty-state { text-align: center; color: var(--text-soft); padding: 2.5rem 1rem; border: 2px dashed var(--border); border-radius: var(--radius); }
+
+/* ==========================================================
+   8. MENSAJE EMERGENTE Y DIÁLOGO
+   ========================================================== */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--green-900);
+  color: var(--cream-50);
+  padding: 0.8rem 1.3rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+  max-width: calc(100% - 2rem);
+  border-left: 5px solid var(--ok);
+}
+.toast.toast-error { border-left-color: var(--danger); }
+.toast[hidden] { display: none; }
+
+.dialog {
+  border: none;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 420px;
+  width: calc(100% - 2rem);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  color: var(--text);
+}
+.dialog::backdrop { background: rgba(20, 30, 25, 0.55); }
+.dialog h3 { font-family: var(--font-title); color: var(--green-900); margin-bottom: 0.5rem; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 1.25rem; }
+
+/* ==========================================================
+   9. PIE DE PÁGINA
+   ========================================================== */
+.site-footer { text-align: center; font-size: 0.82rem; color: var(--text-soft); padding: 1.25rem; border-top: 1px solid var(--border); }
+
+/* ==========================================================
+   10. RESPONSIVE
+   ========================================================== */
+@media (max-width: 960px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: "stats" "form" "list";
+  }
+  .form-panel { position: static; }
+}
+
+@media (max-width: 600px) {
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .stats { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+  .search-box { max-width: none; flex-basis: 100%; }
+  .panel { padding: 1.1rem; }
+  .form-actions .btn { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}

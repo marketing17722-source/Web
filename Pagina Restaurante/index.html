@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Administración de productos del restaurante Sabor & Brasa">
+  <title>Administración de productos | Sabor &amp; Brasa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M16 12v10a3 3 0 0 0 3 3v11M22 12v10a3 3 0 0 1-3 3M19 12v8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M31 36V12c-3 2-5 6-5 11 0 3 2 4 5 4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <p class="brand-name">Sabor &amp; Brasa</p>
+          <p class="brand-tagline">Cocina de Ismael & Anthony</p>
+        </div>
+      </div>
+      <h1 class="page-title">Administración de productos</h1>
+    </div>
+  </header>
+
+  <main class="container main-grid">
+
+    <!-- INDICADORES -->
+    <section class="stats" aria-label="Resumen de productos">
+      <article class="stat-card">
+        <span class="stat-label">Total de productos</span>
+        <strong class="stat-value" id="stat-total">0</strong>
+      </article>
+      <article class="stat-card stat-ok">
+        <span class="stat-label">Disponibles</span>
+        <strong class="stat-value" id="stat-available">0</strong>
+      </article>
+      <article class="stat-card stat-off">
+        <span class="stat-label">No disponibles</span>
+        <strong class="stat-value" id="stat-unavailable">0</strong>
+      </article>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section class="panel form-panel" aria-labelledby="form-title">
+      <h2 id="form-title" class="panel-title">Registrar producto</h2>
+
+      <form id="product-form" novalidate>
+        <div class="field">
+          <label for="code">Código del producto <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="code" name="code" maxlength="20" placeholder="Ej. PP-001" autocomplete="off" required>
+          <p class="error-msg" id="error-code" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="name">Nombre <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="name" name="name" maxlength="60" placeholder="Ej. Risotto de hongos" autocomplete="off" required>
+          <p class="error-msg" id="error-name" aria-live="polite"></p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="category">Categoría <span class="req" aria-hidden="true">*</span></label>
+            <select id="category" name="category" required>
+              <option value="">Seleccione…</option>
+            </select>
+            <p class="error-msg" id="error-category" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="price">Precio (RD$) <span class="req" aria-hidden="true">*</span></label>
+            <input type="number" id="price" name="price" min="0" step="0.01" inputmode="decimal" placeholder="0.00" required>
+            <p class="error-msg" id="error-price" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="description">Descripción <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="description" name="description" rows="3" maxlength="250" placeholder="Ingredientes, preparación o notas del plato" required></textarea>
+          <p class="error-msg" id="error-description" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="availability">Disponibilidad <span class="req" aria-hidden="true">*</span></label>
+          <select id="availability" name="availability" required>
+            <option value="Disponible">Disponible</option>
+            <option value="No disponible">No disponible</option>
+          </select>
+          <p class="error-msg" id="error-availability" aria-live="polite"></p>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submit-btn">Registrar producto</button>
+          <button type="button" class="btn btn-ghost" id="cancel-btn" hidden>Cancelar edición</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- LISTADO -->
+    <section class="panel list-panel" aria-labelledby="list-title">
+      <div class="list-header">
+        <h2 id="list-title" class="panel-title">Productos registrados</h2>
+        <div class="search-box">
+          <label for="search" class="visually-hidden">Buscar producto por nombre</label>
+          <input type="search" id="search" placeholder="Buscar por nombre…" autocomplete="off">
+        </div>
+      </div>
+
+      <p class="results-info" id="results-info" aria-live="polite"></p>
+      <div class="product-grid" id="product-list"></div>
+      <p class="empty-state" id="empty-state" hidden></p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Sabor &amp; Brasa · Sistema interno de productos · Enfocados en tu paladar · Datos actuales 2026</p>
+  </footer>
+
+  <!-- MENSAJE EMERGENTE -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- DIÁLOGO DE CONFIRMACIÓN -->
+  <dialog id="confirm-dialog" class="dialog" aria-labelledby="confirm-title">
+    <form method="dialog">
+      <h3 id="confirm-title">Confirmar acción</h3>
+      <p id="confirm-message"></p>
+      <div class="dialog-actions">
+        <button type="submit" value="cancel" class="btn btn-ghost">Cancelar</button>
+        <button type="submit" value="confirm" class="btn btn-danger">Eliminar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
