@@ -1,9 +1,9 @@
 # Web
 Este proyecto es un trabajo practico de bachillerato. La practica consiste en crear una pagina web la cual con un enlace proporcionado por Netlify, podamos ver los cambios que se hagan desde el código fuente directamente en el enlace de la pagina. El objetivo es tener una recarga rápida y eficiente de los cambios que hagamos nosotros.
 
-Decido desde ahora hacer publico este repositorio y no solo el reposotorio si no la pagina que he realizado.
+Decido desde ahora hacer publico este repositorio y no solo el reposotorio sino la pagina que he realizado.
 
--- Enlace de pagina: 
+-- Enlace de pagina: https://restaurantsyb.netlify.app/
 
 Quiero antes de nada ponee en claro que esta pagina la he realizaco con ayuda de la IA, ya que aunque tengo conocimientos de HTML, CSS y un poco de JavaScript, no los domino por completo. Lo que si estoy estudiando con profundidad es Python pero aún ahí mis conocimientos no son muy "profundos" que digamos. 
 
